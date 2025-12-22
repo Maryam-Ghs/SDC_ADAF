@@ -1,0 +1,42 @@
+These are some potential examples of floating point adad applications.
+
+f2c/
+
+This is the fortran to c converter from Bell Labs. You use it to convert
+F77 (fortran standard from 1977) code to C. You need to compile it etc.
+ALTERNATIVELY, f2c may be available directly for your Linux platform, so
+try that before worrying about this.
+
+When you use f2c on a fortran code, it will transform ilm.f to ilm.c
+and then when you do the compile, you need to add the f2c library to
+the link like in order to get that to work, i.e.
+    g++ ilm.o -lf2c -o ilm
+
+blas/
+
+These are the basic linear algebra routines, there you will see the BLAS
+themselves in fortran (BLAS/src), and you want to use the single precision
+versions starting with 's'. The BLAS come with tests which are in BLAS/TESTING.
+You should convert the source files and the tests to C and then do the
+adad/adaf magic on them.
+
+corbo/
+
+This is a linear program solver from Bell Labs. It is small and might be a good
+candidate. It is in double, so would need to be changed to float first. There
+is a test in the directory, plus *many* more if you want. I collected some
+and can send.
+
+k-means/
+
+This is a simple C implementation of K-means machine learning classifier.
+
+svm/
+
+This is a simple C implementation of Support-Vector-Machine classifier.
+
+fastcap/
+
+This is a 3 dimensional capacitance calculator from MIT. I believe it is
+in double and would need to change to float. There are a number of examples
+in the directory also.

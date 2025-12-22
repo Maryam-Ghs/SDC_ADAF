@@ -1,0 +1,33 @@
+Here's how to compile corbo (aka ALPO) from the file I emailed you.
+
+(1) Make a directory called corbo:
+	mkdir corbo
+
+(2) Move the email file to this directory:
+	mv emailfile corbo		(assuming you called it emailfile)
+
+(3) Move yourself to this directory:
+	cd corbo
+
+(4) Strip off the lines that mail attached to email file:
+	vi emailfile			(you can skip this step if you don't
+                                         mind a few error messages in the
+                                         next step)
+
+(5) Unbundle the email file:
+	sh emailfile			
+
+(6) Compile corbo:      		 
+        make                            (make reads makefile which tells it how
+	                                 to compile and link the source code
+                                         modules - if you encounter
+                                         difficulties, your local UNIX guru
+                                         will undoubtedly know how to edit
+                                         makefile so that it works on your
+                                         system.  also, your guru may want to   
+  					 edit makefile so that the optimizing
+                                         compiler flags are turned on.)         
+
+(7) Run a test problem: 		 
+        corbo AFIRO.mps        
+

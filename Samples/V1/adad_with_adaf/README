@@ -1,0 +1,37 @@
+Added linreg.c, which performs a simple linear regression.
+
+     make linreg
+     linreg -l
+     etc...
+--------------------------------------------------------------------------------
+This is an update which combines the ADAD and ADAF. The simple test cases implemented are the sorting of floating point arrays.
+
+The files are:
+
+adad.cpp        ADAD (integer) implementation
+adad.h
+adaf.cpp        ADAF (floating point) implentation
+adaf.h
+fault.cpp       fault management librart
+heap.cpp        heap sort (*)
+insertion.cpp   insertion sort (*)
+main.cpp        main routine
+Makefile        
+merge.cpp       merge sort (*)
+README          this file
+sorter.cpp      sort routine
+
+To compile:
+
+copy one of the (*) files to sorter.cpp
+
+     cp merge.cpp sorter.cpp
+     make
+
+To get the listing:
+
+     sorter -l
+
+To inject faults
+
+     sorter ...
