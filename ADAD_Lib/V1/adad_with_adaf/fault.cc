@@ -7,11 +7,11 @@
 #include "adad.h"
 #include "adaf.h"
 
-extern std::map<std::string, int> fault_strings;
-extern std::map<int, double>      fault_probs;
-extern std::map<int, int>         fault_counts;
-extern std::map<int, int>         run_counts;
-extern int                        num_sdc, num_core, last_id;
+std::map<std::string, int> fault_strings;
+std::map<int, double>      fault_probs;
+std::map<int, int>         fault_counts;
+std::map<int, int>         run_counts;
+int                        num_sdc, num_core, last_id=-1, verbose=0,current_trial, num_trials;
 
 extern int                   backtrace(void **buffer, int size);
 extern char**                backtrace_symbols(void* const* array, int size);

@@ -103,6 +103,6 @@ extern float get_faulty_float(int id, float value);
 extern int get_faulty_boolean(int id, int value);
 
 // functions in main.cpp
-extern void coredump(int index, int lb, int ub);
+extern int coredump(int index, int lb, int ub);
   
 #endif /* ADAF_H */

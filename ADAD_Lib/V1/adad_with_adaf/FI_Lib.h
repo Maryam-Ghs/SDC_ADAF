@@ -6,12 +6,14 @@
 #include <stdexcept>
 #include <setjmp.h>
 #include <map>
+#include "adad.h"
+#include "adaf.h"
 
 extern std::map<std::string, int> fault_strings;
 extern std::map<int, double>      fault_probs;
 extern std::map<int, int>         fault_counts;
 extern std::map<int, int>         run_counts;
-extern int                        num_sdc, num_core, last_id;
+extern int                        num_sdc, num_core, last_id, verbose,current_trial, num_trials;
 
 class FI_Lib {
 public:
@@ -46,7 +48,7 @@ private:
         }
     }
 
-    void finalize() {
+    void finalize() const{
       if (List) {
         std::map<std::string, int>::iterator it0;
         std::map<int, int>::iterator it1;
@@ -94,6 +96,8 @@ private:
              << FI_id << "\n"
              << probability << "\n"
              << cycle << "\n";
+
+        finalize();
     }
 
     static std::string make_out_path(const std::string& in) {
@@ -105,5 +109,6 @@ private:
     }
 };
 
+extern int coredump(int index, int lb, int ub);
 
 #endif /* FI_LIB_H */

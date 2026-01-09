@@ -1,6 +1,4 @@
 #include <stdlib.h>
-#include "adad.h"
-#include "adaf.h"
 #include "FI_Lib.h"
 
 #include <stdio.h>

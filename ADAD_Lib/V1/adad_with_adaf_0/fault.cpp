@@ -5,13 +5,12 @@
 
 #include "adad.h"
 #include "adaf.h"
-#include "FI_Lib.h"
 
- std::map<std::string, int> fault_strings;
- std::map<int, double>      fault_probs;
- std::map<int, int>         fault_counts;
- std::map<int, int>         run_counts;
- int                        num_sdc, num_core, last_id;
+extern std::map<std::string, int> fault_strings;
+extern std::map<int, double>      fault_probs;
+extern std::map<int, int>         fault_counts;
+extern std::map<int, int>         run_counts;
+extern int                        num_sdc, num_core, last_id;
 
 extern int                   backtrace(void **buffer, int size);
 extern char**                backtrace_symbols(void* const* array, int size);
@@ -118,14 +117,4 @@ float get_faulty_float(int id, float value) {
   x.f = value;
   x.i = x.i ^ g;
   return x.f;
-}
-
-void coredump(int index, int lb, int ub) {
-  if (verbose) printf("run %4d/%4d had an indexing fault %d not in %d-%d\n", current_trial, num_trials, index, lb, ub);
-  ++num_core;
-  ++current_trial;
-  // are we at the end?
-  if (current_trial >= num_trials) finalize();
-  // no, so we jump back into the loop
-  longjmp(JumpBuffer, 1);
 }

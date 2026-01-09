@@ -146,6 +146,6 @@ extern int get_faulty_integer(int id, int value);
 extern int get_faulty_boolean(int id, int value);
 
 // functions in main.cpp
-extern void coredump(int index, int lb, int ub);
+extern int coredump(int index, int lb, int ub);
   
 #endif /* ADAD_H */
