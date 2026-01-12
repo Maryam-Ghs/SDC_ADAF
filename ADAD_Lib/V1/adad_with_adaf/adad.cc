@@ -1,9 +1,8 @@
 #include <stdio.h>
 #include <string>
 #include <map>
+#include "FI_Lib.h"
 #include "adad.h"
-
-extern int get_location_id(const char *);
 
 // ADAD Operator implementations
 adad& adad::operator=(int dval) {

@@ -19,7 +19,14 @@ ULMBLAS(saxpy)(int           n,
     if (incY<0) {
         y -= incY*(n-1);
     }
-    ulmBLAS::axpy<int, adaf, adaf, adaf>(n, alpha, x, incX, y, incY);
+
+    // TODO: this makes no use of adaf_array functionality, so it cannot detect out of bounds accesses
+    //
+    // the reinterpret_cast works here because adaf is a class with only a float member,
+    // which has the same memory layout as just a float
+    auto xadaf = reinterpret_cast<const adaf*>(x);
+    auto yadaf = reinterpret_cast<adaf*>(y);
+    ulmBLAS::axpy<int, adaf, adaf, adaf>(n, alpha, xadaf, incX, yadaf, incY);
 }
 
 

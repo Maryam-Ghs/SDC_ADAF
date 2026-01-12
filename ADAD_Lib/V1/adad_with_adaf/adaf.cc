@@ -2,9 +2,8 @@
 #include <string>
 #include <map>
 #include <cmath>
+#include "FI_Lib.h"
 #include "adaf.h"
-
-extern int get_location_id(const char *);
 
 // ADAF Operator implementations
 void adaf::operator=(float dval) {
