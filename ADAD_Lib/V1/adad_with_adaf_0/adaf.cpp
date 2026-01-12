@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <string>
 #include <map>
+#include <cmath>
 #include "adaf.h"
 
 extern int get_location_id(const char *);
