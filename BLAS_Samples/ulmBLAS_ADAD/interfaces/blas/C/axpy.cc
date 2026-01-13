@@ -44,7 +44,10 @@ ULMBLAS(daxpy)(int           n,
     if (incY<0) {
         y -= incY*(n-1);
     }
-    ulmBLAS::axpy(n, alpha, x, incX, y, incY);
+    //ulmBLAS::axpy(n, alpha, x, incX, y, incY);
+    auto xadaf = reinterpret_cast<const adafd*>(x);
+    auto yadaf = reinterpret_cast<adafd*>(y);
+    ulmBLAS::axpy<int, adafd, adafd, adafd>(n, alpha, xadaf, incX, yadaf, incY);
 }
 
 void

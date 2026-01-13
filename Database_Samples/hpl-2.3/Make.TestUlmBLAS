@@ -92,7 +92,7 @@ MPlib        = #$(MPdir)/lib/libmpich.a
 # header files,  LAlib  is defined  to be the name of  the library to be
 # used. The variable LAdir is only used for defining LAinc and LAlib.
 #
-LAdir        = /localdata/Mary/Workspace_2/ADAD_ADAF/BLAS_Samples/ulmBLAS_local
+LAdir        = /localdata/Mary/Workspace_2/ADAD_ADAF/BLAS_Samples/ulmBLAS_ADAD
 LAinc        = -I$(LAdir)
 LAlib        = $(LAdir)/libcblas.a -lm -lstdc++
 #
@@ -168,7 +168,7 @@ HPL_DEFS     = $(F2CDEFS) $(HPL_OPTS) $(HPL_INCLUDES)
 #
 CC           = mpicc
 CCNOOPT      = $(HPL_DEFS)
-CCFLAGS      = $(HPL_DEFS) -fomit-frame-pointer -O3 -funroll-loops
+CCFLAGS      = $(HPL_DEFS) -fomit-frame-pointer -g -funroll-loops
 #
 # On some platforms,  it is necessary  to use the Fortran linker to find
 # the Fortran internals used in the BLAS library.

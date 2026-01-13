@@ -39,11 +39,12 @@ public:
 
     int get_location_id(const char *OP) {
       int    id;
-      void	*p[3];
+      const int depth = 4;
+      void	*p[depth];
       char **q;
-      backtrace(p, 3);
-      q = backtrace_symbols(p, 3);
-      std::string S = OP + std::string("\t") + std::string(q[2]);
+      backtrace(p, depth);
+      q = backtrace_symbols(p, depth);
+      std::string S = OP + std::string("\t") + std::string(q[depth - 1]);
       free(q);
       if (fault_strings.find(S) == fault_strings.end()) {
         id = 1 + fault_strings.size();
@@ -141,6 +142,39 @@ public:
       return x.f;
     }
 
+    double get_faulty_double(int id, double value) {
+      int f, g;
+      union two {
+        int   i;
+        double f;
+      } x;
+      ++run_counts[id];
+      // has the location been marked for fault insertion
+      if (fault_probs.find(id) == fault_probs.end()) {
+        return value;
+      }
+      // is the probability sensible (may not be needed)
+      if (fault_probs[id] <= 0.0 || fault_probs[id] > 1.0) {
+        return value;
+      }
+      // roll the dice
+      if (rand01() > fault_probs[id]) {
+        return value;
+      }
+      // increment the fault count
+      ++fault_counts[id];
+      // mark this as the last location
+      last_id = id;
+      // pick a random bit location
+      f = random() % 64;
+      // put a 1 there
+      g = 1 << f;
+      // xor it on the result
+      x.f = value;
+      x.i = x.i ^ g;
+      return x.f;
+    }
+
 private:
     std::string input_file_path;
 
@@ -221,7 +255,7 @@ int get_location_id(const char *OP);
 int get_faulty_integer(int id, int value);
 int get_faulty_boolean(int id, int value);
 float get_faulty_float(int id, float value);
-    
+double get_faulty_double(int id, double value);
 
 
 int coredump(int index, int lb, int ub);

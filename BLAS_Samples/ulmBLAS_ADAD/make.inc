@@ -10,7 +10,7 @@ FC  := gfortran
 # Compiler and linker flags
 #
 CXXFLAGS   += -msse3 -mfpmath=sse
-CXXFLAGS   += -std=c++11 -O3  -fomit-frame-pointer -Wall
+CXXFLAGS   += -std=c++11 -g  -fomit-frame-pointer -Wall
 
 FFLAGS     += -Wall -fimplicit-none -O3
 LDLIBS     += -lm

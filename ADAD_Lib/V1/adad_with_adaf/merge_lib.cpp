@@ -67,7 +67,7 @@ void a_mergeSort(adaf_array arr, adad left, adad right) {
 }
 
 int main() {
-  int size=100;
+  int size=1000;
   float      *input;
   int         i;
 
