@@ -201,4 +201,7 @@ build.cblas/axpy.o build.cblas/axpy.d : axpy.cc ../../../cblas.h ../../../ulmbla
  ../../../ulmblas/level3/ukernel/sse/utrlsm.tcc \
  ../../../ulmblas/level3/ukernel/sse/utrusm.h \
  ../../../ulmblas/level3/ukernel/sse/utrusm.tcc \
- ../../../../../ADAD_Lib/V1/adad_with_adaf/adaf.h
+ ../../../../../ADAD_Lib/V1/adad_with_adaf/FI_Lib.h \
+ ../../../../../ADAD_Lib/V1/adad_with_adaf/adad.h \
+ ../../../../../ADAD_Lib/V1/adad_with_adaf/adaf.h \
+ ../../../../../ADAD_Lib/V1/adad_with_adaf/adafd.h

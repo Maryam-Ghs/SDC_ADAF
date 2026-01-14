@@ -201,4 +201,8 @@ build.cblas/gemm.o build.cblas/gemm.d : gemm.cc ../../../cblas.h ../../../interf
  ../../../ulmblas/level3/ukernel/sse/utrlsm.h \
  ../../../ulmblas/level3/ukernel/sse/utrlsm.tcc \
  ../../../ulmblas/level3/ukernel/sse/utrusm.h \
- ../../../ulmblas/level3/ukernel/sse/utrusm.tcc
+ ../../../ulmblas/level3/ukernel/sse/utrusm.tcc \
+ ../../../../../ADAD_Lib/V1/adad_with_adaf/FI_Lib.h \
+ ../../../../../ADAD_Lib/V1/adad_with_adaf/adad.h \
+ ../../../../../ADAD_Lib/V1/adad_with_adaf/adaf.h \
+ ../../../../../ADAD_Lib/V1/adad_with_adaf/adafd.h

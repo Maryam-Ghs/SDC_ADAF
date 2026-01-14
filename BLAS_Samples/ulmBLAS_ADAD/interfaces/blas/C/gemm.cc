@@ -3,6 +3,7 @@
 #include <interfaces/blas/C/transpose.h>
 #include <interfaces/blas/C/xerbla.h>
 #include <ulmblas/ulmblas.h>
+#include "../../ADAD_Lib/V1/adad_with_adaf/FI_Lib.h"
 
 extern "C" {
 
@@ -12,15 +13,20 @@ ULMBLAS(sgemm)(enum CBLAS_TRANSPOSE  transA,
                int                   m,
                int                   n,
                int                   k,
-               float                 alpha,
-               const float           *A,
+               float                 alpha_in,
+               const float           *A_in,
                int                   ldA,
-               const float           *B,
+               const float           *B_in,
                int                   ldB,
-               float                 beta,
-               float                 *C,
+               float                 beta_in,
+               float                 *C_in,
                int                   ldC)
 {
+    adaf alpha = alpha_in;
+    adaf beta = beta_in;
+    auto A = reinterpret_cast<const adaf*>(A_in);
+    auto B = reinterpret_cast<const adaf*>(B_in);
+    auto C = reinterpret_cast<adaf*>(C_in);
 //
 //  Start the operations.
 //
@@ -29,7 +35,8 @@ ULMBLAS(sgemm)(enum CBLAS_TRANSPOSE  transA,
 //
 //          Form  C := alpha*A*B + beta*C.
 //
-            ulmBLAS::gemm(m, n, k,
+            ulmBLAS::gemm<int, adaf, adaf, adaf, adaf, adaf>
+                        (m, n, k,
                           alpha,
                           false, A, 1, ldA,
                           false, B, 1, ldB,
@@ -39,7 +46,8 @@ ULMBLAS(sgemm)(enum CBLAS_TRANSPOSE  transA,
 //
 //          Form  C := alpha*A**T*B + beta*C
 //
-            ulmBLAS::gemm(m, n, k,
+            ulmBLAS::gemm<int, adaf, adaf, adaf, adaf, adaf>
+                        (m, n, k,
                           alpha,
                           false, A, ldA, 1,
                           false, B, 1, ldB,
@@ -51,7 +59,8 @@ ULMBLAS(sgemm)(enum CBLAS_TRANSPOSE  transA,
 //
 //          Form  C := alpha*A*B**T + beta*C
 //
-            ulmBLAS::gemm(m, n, k,
+            ulmBLAS::gemm<int, adaf, adaf, adaf, adaf, adaf>
+                        (m, n, k,
                           alpha,
                           false, A, 1, ldA,
                           false, B, ldB, 1,
@@ -61,7 +70,8 @@ ULMBLAS(sgemm)(enum CBLAS_TRANSPOSE  transA,
 //
 //          Form  C := alpha*A**T*B**T + beta*C
 //
-            ulmBLAS::gemm(m, n, k,
+            ulmBLAS::gemm<int, adaf, adaf, adaf, adaf, adaf>
+                        (m, n, k,
                           alpha,
                           false, A, ldA, 1,
                           false, B, ldB, 1,
@@ -78,15 +88,20 @@ ULMBLAS(dgemm)(enum CBLAS_TRANSPOSE  transA,
                int                   m,
                int                   n,
                int                   k,
-               double                alpha,
-               const double          *A,
+               double                alpha_in,
+               const double          *A_in,
                int                   ldA,
-               const double          *B,
+               const double          *B_in,
                int                   ldB,
-               double                beta,
-               double                *C,
+               double                beta_in,
+               double                *C_in,
                int                   ldC)
 {
+    adafd alpha = alpha_in;
+    adafd beta = beta_in;
+    auto A = reinterpret_cast<const adafd*>(A_in);
+    auto B = reinterpret_cast<const adafd*>(B_in);
+    auto C = reinterpret_cast<adafd*>(C_in);
 //
 //  Start the operations.
 //
@@ -95,7 +110,8 @@ ULMBLAS(dgemm)(enum CBLAS_TRANSPOSE  transA,
 //
 //          Form  C := alpha*A*B + beta*C.
 //
-            ulmBLAS::gemm(m, n, k,
+            ulmBLAS::gemm<int, adafd, adafd, adafd, adafd, adafd>
+                        (m, n, k,
                           alpha,
                           false, A, 1, ldA,
                           false, B, 1, ldB,
@@ -105,7 +121,8 @@ ULMBLAS(dgemm)(enum CBLAS_TRANSPOSE  transA,
 //
 //          Form  C := alpha*A**T*B + beta*C
 //
-            ulmBLAS::gemm(m, n, k,
+            ulmBLAS::gemm<int, adafd, adafd, adafd, adafd, adafd>
+                        (m, n, k,
                           alpha,
                           false, A, ldA, 1,
                           false, B, 1, ldB,
@@ -117,7 +134,8 @@ ULMBLAS(dgemm)(enum CBLAS_TRANSPOSE  transA,
 //
 //          Form  C := alpha*A*B**T + beta*C
 //
-            ulmBLAS::gemm(m, n, k,
+            ulmBLAS::gemm<int, adafd, adafd, adafd, adafd, adafd>
+                        (m, n, k,
                           alpha,
                           false, A, 1, ldA,
                           false, B, ldB, 1,
@@ -127,7 +145,8 @@ ULMBLAS(dgemm)(enum CBLAS_TRANSPOSE  transA,
 //
 //          Form  C := alpha*A**T*B**T + beta*C
 //
-            ulmBLAS::gemm(m, n, k,
+            ulmBLAS::gemm<int, adafd, adafd, adafd, adafd, adafd>
+                        (m, n, k,
                           alpha,
                           false, A, ldA, 1,
                           false, B, ldB, 1,

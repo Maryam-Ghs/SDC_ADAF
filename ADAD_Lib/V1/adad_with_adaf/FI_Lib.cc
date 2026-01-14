@@ -27,3 +27,6 @@ int get_faulty_boolean(int id, int value) {
 float get_faulty_float(int id, float value) {
     return fi_lib.get_faulty_float(id, value);
 }
+double get_faulty_double(int id, double value) {
+    return fi_lib.get_faulty_double(id, value);
+}
