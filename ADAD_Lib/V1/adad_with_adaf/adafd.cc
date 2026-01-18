@@ -157,7 +157,7 @@ adafd operator/ (double dval, const adafd &a) {
 }
 
 // relational operators
-int adafd::operator== (const adafd &a) const {
+int adafd::operator== (const adafd &a) const noexcept {
   int id = get_location_id("D==D");
   return get_faulty_boolean(id, value == a.value);
 }
@@ -187,7 +187,7 @@ int adafd::operator>= (const adafd &a) const {
   return get_faulty_boolean(id, value >= a.value);
 }
 
-int adafd::operator== (double dval) const {
+int adafd::operator== (double dval) const noexcept {
   int id = get_location_id("D==K");
   return get_faulty_boolean(id, value == dval);
 }
@@ -217,7 +217,7 @@ int adafd::operator>= (double dval) const {
   return get_faulty_boolean(id, value >= dval);
 }
 
-int operator== (double dval, const adafd &a) {
+int operator== (double dval, const adafd &a) noexcept {
   int id = get_location_id("K==D");
   return get_faulty_boolean(id, dval == a.value);
 }

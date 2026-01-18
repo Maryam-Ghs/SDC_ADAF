@@ -1,0 +1,16 @@
+cff-version: 1.2.0
+message: >
+  If you use ulmBLAS in your work, please cite it as below.
+title: "ulmBLAS: A high performance BLAS implementation"
+authors:
+  - family-names: Lehn
+    given-names: Michael C.
+    affiliation: Ulm University
+    orcid: https://orcid.org/0009-0001-3197-0945
+date-released: 2014-07-05
+version: "1.0"
+repository-code: https://github.com/michael-lehn/ulmBLAS
+url: https://github.com/michael-lehn/ulmBLAS
+license: MIT
+note: Ulm University
+

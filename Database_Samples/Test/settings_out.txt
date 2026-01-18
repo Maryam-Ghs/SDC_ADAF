@@ -1,0 +1,10 @@
+SEED:12345
+FI_id:3
+probability:1
+cycle:10
+Run Counts:
+	1	1
+	2	5
+	3	5
+Fault Counts:
+	3	5

@@ -2,9 +2,17 @@
 #define ADAF_H
 
 #include <stdio.h>
+#include <string>
+#include <cstdint>
+#include <cstring>
+#include <ulmblas/ulmblas.h>
+#include <list>
+#include <unordered_map>
+#include <mutex>
+
 
 class adaf {
-protected:
+public:
   float	value;
 public:
   adaf() {
@@ -62,19 +70,19 @@ public:
   friend adaf operator/ (float dval, const adaf &a);
 
   // relational operators
-  int operator== (const adaf &a) const;
+  int operator== (const adaf &a) const noexcept;
   int operator!= (const adaf &a) const;
   int operator< (const adaf &a) const;
   int operator> (const adaf &a) const;
   int operator<= (const adaf &a) const;
   int operator>= (const adaf &a) const;
-  int operator== (float dval) const;
+  int operator== (float dval) const noexcept;
   int operator!= (float dval) const;
   int operator< (float dval) const;
   int operator> (float dval) const;
   int operator<= (float dval) const;
   int operator>= (float dval) const;
-  friend int operator== (float dval, const adaf &a);
+  friend int operator== (float dval, const adaf &a) noexcept;
   friend int operator!= (float dval, const adaf &a);
   friend int operator< (float dval, const adaf &a);
   friend int operator> (float dval, const adaf &a);
@@ -97,4 +105,73 @@ public:
   adaf &operator[](adaf jndex);
   adaf &operator[](int index);
 };
+
+struct adafhash
+{
+    std::size_t operator()(const adaf& a) const noexcept
+    {
+        std::uint32_t bits;
+        std::memcpy(&bits, &a.value, sizeof(bits));
+        return std::hash<std::uint32_t>{}(bits);
+    }
+};
+
+namespace ulmBLAS {
+
+// template <>
+// class MemoryPool<adaf>
+// {
+//     public:
+
+//         adaf *
+//         allocate(size_t n);
+
+//         void
+//         release(adaf *block);
+
+//         virtual
+//         ~MemoryPool();
+
+//     private:
+
+//         typedef std::list<adaf *>                           BlockList;
+//         typedef std::unordered_map<size_t, BlockList>    Free;
+//         typedef std::unordered_map<adaf *, size_t, adafhash> Used;
+
+//         Free        free_;
+//         Used        used_;
+//         BlockList   allocated_;
+//         std::mutex  mutex_;
+// };
+
+template class MemoryPool<adaf>;
+
+template <>
+struct BlockSize<adaf>
+{
+    static const int MC = 768;
+    static const int KC = 384;
+    static const int NC = 4096;
+    static const int MR = 8;
+    static const int NR = 4;
+};
+
+template <> inline
+typename std::enable_if<! std::is_fundamental<adaf>::value,
+         const adaf>::type
+conjugate(const adaf &x)
+{
+    return x;
+}
+
+template <> inline
+typename std::enable_if<! std::is_fundamental<adaf>::value,
+         const adaf>::type
+conjugate(const adaf &x, bool)
+{
+    return x;
+}
+}
+
+
 #endif /* ADAF_H */

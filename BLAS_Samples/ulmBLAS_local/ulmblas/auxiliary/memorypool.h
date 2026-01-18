@@ -25,7 +25,7 @@ class MemoryPool
 
         typedef std::list<T *>                           BlockList;
         typedef std::unordered_map<size_t, BlockList>    Free;
-        typedef std::unordered_map<T *, size_t>          Used;
+        typedef std::unordered_map<T *, size_t> Used;
 
         Free        free_;
         Used        used_;

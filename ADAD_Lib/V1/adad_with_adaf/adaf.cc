@@ -157,7 +157,7 @@ adaf operator/ (float dval, const adaf &a) {
 }
 
 // relational operators
-int adaf::operator== (const adaf &a) const {
+int adaf::operator== (const adaf &a) const noexcept {
   int id = get_location_id("F==F");
   return get_faulty_boolean(id, value == a.value);
 }
@@ -187,7 +187,7 @@ int adaf::operator>= (const adaf &a) const {
   return get_faulty_boolean(id, value >= a.value);
 }
 
-int adaf::operator== (float dval) const {
+int adaf::operator== (float dval) const noexcept {
   int id = get_location_id("F==K");
   return get_faulty_boolean(id, value == dval);
 }
@@ -217,7 +217,7 @@ int adaf::operator>= (float dval) const {
   return get_faulty_boolean(id, value >= dval);
 }
 
-int operator== (float dval, const adaf &a) {
+int operator== (float dval, const adaf &a) noexcept {
   int id = get_location_id("K==F");
   return get_faulty_boolean(id, dval == a.value);
 }

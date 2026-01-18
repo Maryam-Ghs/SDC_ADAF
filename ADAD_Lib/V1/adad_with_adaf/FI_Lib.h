@@ -111,6 +111,7 @@ public:
     }
     
     float get_faulty_float(int id, float value) {
+      std::cout<<"FI_Lib::get_faulty_float called with id="<<id<<" value="<<value<<" probability="<<fault_probs[id]<<std::endl;
       int f, g;
       union two {
         int   i;
@@ -140,10 +141,12 @@ public:
       // xor it on the result
       x.f = value;
       x.i = x.i ^ g;
+      std::cout<<"FI_Lib::get_faulty_float returning faulty value="<<x.f<<std::endl;
       return x.f;
     }
 
     double get_faulty_double(int id, double value) {
+      std::cout<<"FI_Lib::get_faulty_double called with id="<<id<<" value="<<value<<" probability="<<fault_probs[id]<<std::endl;
       int f, g;
       union two {
         int   i;
@@ -173,6 +176,7 @@ public:
       // xor it on the result
       x.f = value;
       x.i = x.i ^ g;
+      std::cout<<"FI_Lib::get_faulty_double returning faulty value="<<x.f<<std::endl;
       return x.f;
     }
 
@@ -186,39 +190,61 @@ private:
         }
 
         file >> SEED >> FI_id >> probability >> cycle >> List;
+        fault_probs[FI_id] = probability;
         if (file.fail()) {
             throw std::runtime_error("Error reading input file");
         }
     }
 
-    void finalize() const{
+    void finalize(std::ofstream& file) const{
       if (List) {
-        std::cout << fault_strings.size() << std::endl;
+        //std::cout << fault_strings.size() << std::endl;
+        file<<"Fault strings size:\t" << fault_strings.size() << "\n";
 
         printf("Fault Locations:\n\tid\tdescription\n");
+        file<<"Fault Locations:\n\tid\tdescription\n";
         for (auto it0 = fault_strings.begin(); it0 != fault_strings.end(); it0++) {
           printf("\t%d\t%s\n", it0->second, it0->first.c_str());
+          file<<"\t"<< it0->second << "\t" << it0->first << "\n";
         }
-        printf("Run Counts:\n");
-          for (auto it1 = run_counts.begin(); it1 != run_counts.end(); it1++) {
-          printf("\t%d\t%d\n", it1->first, it1->second);
+        //printf("Run Counts:\n");
+        file<<"Run Counts:\n";
+        for (auto it1 = run_counts.begin(); it1 != run_counts.end(); it1++) {
+          //printf("\t%d\t%d\n", it1->first, it1->second);
+          file<<"\t"<< it1->first << "\t" << it1->second << "\n";
         }
-        printf("Fault Counts:\n");
+        // printf("Fault Counts:\n");
+        //   for (auto it2 = fault_counts.begin(); it2 != fault_counts.end(); it2++) {
+        //   //printf("\t%d\t%d\n", it2->first, it2->second);
+        //   file<<"\t"<< it2->first << "\t" << it2->second << "\n";
+        // }
+        // return;
+      }
+      else {
+        //printf("Run Counts:\n");
+        file<<"Run Counts:\n";
+        for (auto it1 = run_counts.begin(); it1 != run_counts.end(); it1++) {
+          //printf("\t%d\t%d\n", it1->first, it1->second);
+          file<<"\t"<< it1->first << "\t" << it1->second << "\n";
+        }
+        //printf("Fault Counts:\n");
+        file<<"Fault Counts:\n";
           for (auto it2 = fault_counts.begin(); it2 != fault_counts.end(); it2++) {
-          printf("\t%d\t%d\n", it2->first, it2->second);
+          //printf("\t%d\t%d\n", it2->first, it2->second);
+          file<<"\t"<< it2->first << "\t" << it2->second << "\n";
         }
-        return;
       }
+      // printf("Injection Fault_Probs:\n\tid\tprob\n");
+      // for (auto it1 = fault_probs.begin(); it1 != fault_probs.end(); it1++) {
+      //   //printf("\t%d\t%g\n", it1->first, it1->second);
+      //   file<<"\t"<< it1->first << "\t" << it1->second << "\n";
+      // }
 
-      printf("Injection Fault_Probs:\n\tid\tprob\n");
-      for (auto it1 = fault_probs.begin(); it1 != fault_probs.end(); it1++) {
-        printf("\t%d\t%g\n", it1->first, it1->second);
-      }
-
-      printf("Fault Counts:\n");
-      for (auto it2 = fault_counts.begin(); it2 != fault_counts.end(); it2++) {
-        printf("\t%d\t%d\n", it2->first, it2->second);
-      }
+      // printf("Fault Counts:\n");
+      // for (auto it2 = fault_counts.begin(); it2 != fault_counts.end(); it2++) {
+      //   //printf("\t%d\t%d\n", it2->first, it2->second);
+      //   file<<"\t"<< it2->first << "\t" << it2->second << "\n";
+      // }
       return;
     }
 
@@ -230,12 +256,12 @@ private:
             return;
         }
 
-        file << SEED << "\n"
-             << FI_id << "\n"
-             << probability << "\n"
-             << cycle << "\n";
+        file << "SEED:" <<SEED << "\n"
+             << "FI_id:" << FI_id << "\n"
+             << "probability:" << probability << "\n"
+             << "cycle:" << cycle << "\n";
 
-        finalize();
+        finalize(file);
     }
 
     static std::string make_out_path(const std::string& in) {

@@ -22,7 +22,7 @@ conjugate(const T &x, bool)
     return x;
 }
 
-template <typename T>
+template <typename T> inline
 typename std::enable_if<! std::is_fundamental<T>::value,
          const T>::type
 conjugate(const T &x)
@@ -30,7 +30,7 @@ conjugate(const T &x)
     return std::conj(x);
 }
 
-template <typename T>
+template <typename T> inline
 typename std::enable_if<! std::is_fundamental<T>::value,
          const T>::type
 conjugate(const T &x, bool apply)
