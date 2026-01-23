@@ -118,32 +118,6 @@ struct adafhash
 
 namespace ulmBLAS {
 
-// template <>
-// class MemoryPool<adaf>
-// {
-//     public:
-
-//         adaf *
-//         allocate(size_t n);
-
-//         void
-//         release(adaf *block);
-
-//         virtual
-//         ~MemoryPool();
-
-//     private:
-
-//         typedef std::list<adaf *>                           BlockList;
-//         typedef std::unordered_map<size_t, BlockList>    Free;
-//         typedef std::unordered_map<adaf *, size_t, adafhash> Used;
-
-//         Free        free_;
-//         Used        used_;
-//         BlockList   allocated_;
-//         std::mutex  mutex_;
-// };
-
 template class MemoryPool<adaf>;
 
 template <>

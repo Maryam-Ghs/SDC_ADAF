@@ -111,7 +111,7 @@ public:
     }
     
     float get_faulty_float(int id, float value) {
-      std::cout<<"FI_Lib::get_faulty_float called with id="<<id<<" value="<<value<<" probability="<<fault_probs[id]<<std::endl;
+      //std::cout<<"FI_Lib::get_faulty_float called with id="<<id<<" value="<<value<<" probability="<<fault_probs[id]<<std::endl;
       int f, g;
       union two {
         int   i;
@@ -141,12 +141,12 @@ public:
       // xor it on the result
       x.f = value;
       x.i = x.i ^ g;
-      std::cout<<"FI_Lib::get_faulty_float returning faulty value="<<x.f<<std::endl;
+      //std::cout<<"FI_Lib::get_faulty_float returning faulty value="<<x.f<<std::endl;
       return x.f;
     }
 
     double get_faulty_double(int id, double value) {
-      std::cout<<"FI_Lib::get_faulty_double called with id="<<id<<" value="<<value<<" probability="<<fault_probs[id]<<std::endl;
+      //std::cout<<"FI_Lib::get_faulty_double called with id="<<id<<" value="<<value<<" probability="<<fault_probs[id]<<std::endl;
       int f, g;
       union two {
         int   i;
@@ -176,7 +176,7 @@ public:
       // xor it on the result
       x.f = value;
       x.i = x.i ^ g;
-      std::cout<<"FI_Lib::get_faulty_double returning faulty value="<<x.f<<std::endl;
+      //std::cout<<"FI_Lib::get_faulty_double returning faulty value="<<x.f<<std::endl;
       return x.f;
     }
 
@@ -201,10 +201,10 @@ private:
         //std::cout << fault_strings.size() << std::endl;
         file<<"Fault strings size:\t" << fault_strings.size() << "\n";
 
-        printf("Fault Locations:\n\tid\tdescription\n");
+        //printf("Fault Locations:\n\tid\tdescription\n");
         file<<"Fault Locations:\n\tid\tdescription\n";
         for (auto it0 = fault_strings.begin(); it0 != fault_strings.end(); it0++) {
-          printf("\t%d\t%s\n", it0->second, it0->first.c_str());
+          //printf("\t%d\t%s\n", it0->second, it0->first.c_str());
           file<<"\t"<< it0->second << "\t" << it0->first << "\n";
         }
         //printf("Run Counts:\n");
