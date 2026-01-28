@@ -19,8 +19,8 @@ range_end=$(sed -n '7p' "$SETTINGS_FILE")
 
 # Loop over fault IDs
 for fault_id in {1..21}; do
-    # Probability sweep: 0 → 1 step 0.05
-    for prob in $(seq 0 0.05 1); do
+    # Probability sweep: 0 → 0.01 step 0.0005
+    for prob in $(seq 0 0.0005 0.01); do
 
         # Update settings.txt
         cat > "$SETTINGS_FILE" <<EOF
