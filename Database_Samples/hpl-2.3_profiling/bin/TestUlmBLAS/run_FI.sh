@@ -1,5 +1,12 @@
 #!/usr/bin/env bash
 
+#SBATCH --job-name=SDC_100_Random_Bit_Position
+#SBATCH --partition=cpu
+#SBATCH --time=72:00:00
+#SBATCH --mem=64gb
+#SBATCH --error=./outputs/%x.e%j.%N
+#SBATCH --output=./outputs/%x.o%j.%N
+
 SETTINGS_FILE="settings.txt"
 COMPARE_SCRIPT="./compare_hpl.sh"
 GOLDEN_FILE="testrun_golden"

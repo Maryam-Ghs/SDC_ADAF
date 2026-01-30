@@ -26,7 +26,7 @@ public:
     std::map<int, double>      fault_probs;
     std::map<int, int>         fault_counts;
     std::map<int, int>         run_counts;
-    int                        num_sdc, num_core, last_id, verbose,current_trial, num_trials;
+    int                        num_sdc, num_core, last_id, verbose,current_trial, num_trials, FI_range_low, FI_range_high;
 
     explicit FI_Lib(const std::string& input_path)
         : input_file_path(input_path)
@@ -63,6 +63,9 @@ public:
     int get_faulty_integer(int id, int value) {
       int f, g;
       ++run_counts[id];
+      if (cycle != 0 && cycle != run_counts[id]) {
+        return value;
+      }
       // has the location been marked for fault insertion
       if (fault_probs.find(id) == fault_probs.end()) {
         return value;
@@ -79,8 +82,10 @@ public:
       ++fault_counts[id];
       // mark this as the last location
       last_id = id;
+      // calculating fault range
+      int range = FI_range_high - FI_range_low + 1;
       // pick a random bit location
-      f = random() % 32;
+      f = (random() % range) + FI_range_low -1;
       // put a 1 there
       g = 1 << f;
       // xor it on the result
@@ -90,6 +95,9 @@ public:
     
     int get_faulty_boolean(int id, int value) {
       ++run_counts[id];
+      if (cycle != 0 && cycle != run_counts[id]) {
+        return value;
+      }
       // has the location been marked for fault insertion
       if (fault_probs.find(id) == fault_probs.end()) {
         return value;
@@ -118,6 +126,9 @@ public:
         float f;
       } x;
       ++run_counts[id];
+      if (cycle != 0 && cycle != run_counts[id]) {
+        return value;
+      }
       // has the location been marked for fault insertion
       if (fault_probs.find(id) == fault_probs.end()) {
         return value;
@@ -134,8 +145,10 @@ public:
       ++fault_counts[id];
       // mark this as the last location
       last_id = id;
+      // calculating fault range
+      int range = FI_range_high - FI_range_low + 1;
       // pick a random bit location
-      f = random() % 32;
+      f = (random() % range) + FI_range_low -1;
       // put a 1 there
       g = 1 << f;
       // xor it on the result
@@ -147,12 +160,17 @@ public:
 
     double get_faulty_double(int id, double value) {
       //std::cout<<"FI_Lib::get_faulty_double called with id="<<id<<" value="<<value<<" probability="<<fault_probs[id]<<std::endl;
-      int f, g;
+      int f;
+      uint64_t g;
       union two {
-        int   i;
+        uint64_t   i;
         double f;
       } x;
       ++run_counts[id];
+      if ((cycle != 0) && (cycle != run_counts[id])) {
+        //std::cout<<"Returning! FI_Lib::get_faulty_double cycle="<<cycle<<" run_counts[id]="<<run_counts[id]<<std::endl;
+        return value;
+      }
       // has the location been marked for fault insertion
       if (fault_probs.find(id) == fault_probs.end()) {
         return value;
@@ -169,10 +187,13 @@ public:
       ++fault_counts[id];
       // mark this as the last location
       last_id = id;
+      // calculating fault range
+      int range = FI_range_high - FI_range_low + 1;
       // pick a random bit location
-      f = random() % 64;
+      f = (random() % range) + FI_range_low -1;
+      std::cout<<"FI_Lib::get_faulty_double flipping bit position "<<f<<std::endl;
       // put a 1 there
-      g = 1 << f;
+      g = 1ULL << f;
       // xor it on the result
       x.f = value;
       x.i = x.i ^ g;
@@ -189,7 +210,9 @@ private:
             throw std::runtime_error("Cannot open input file: " + input_file_path);
         }
 
-        file >> SEED >> FI_id >> probability >> cycle >> List;
+        file >> SEED >> FI_id >> probability >> cycle >> List >> FI_range_low >> FI_range_high;
+        
+        srand(SEED);
         fault_probs[FI_id] = probability;
         if (file.fail()) {
             throw std::runtime_error("Error reading input file");
@@ -259,7 +282,9 @@ private:
         file << "SEED:" <<SEED << "\n"
              << "FI_id:" << FI_id << "\n"
              << "probability:" << probability << "\n"
-             << "cycle:" << cycle << "\n";
+             << "cycle:" << cycle << "\n"
+             << "FI_range_low:" << FI_range_low << "\n"
+             << "FI_range_high:" << FI_range_high << "\n";
 
         finalize(file);
     }

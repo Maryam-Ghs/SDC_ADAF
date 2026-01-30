@@ -1,28 +1,52 @@
 SEED:54321
 FI_id:21
-probability:0.01
+probability:0.1
 cycle:10
+FI_range_low:0
+FI_range_high:64
+Fault strings size:	21
+Fault Locations:
+	id	description
+	12	D*=D	xhpl(+0x423de) [0x598fe2ff23de]
+	21	D+=D	xhpl(+0x300c1) [0x598fe2fe00c1]
+	10	D+=D	xhpl(+0x4222f) [0x598fe2ff222f]
+	15	D+=D	xhpl(+0x42585) [0x598fe2ff2585]
+	19	D==D	xhpl(+0x3003d) [0x598fe2fe003d]
+	1	D==D	xhpl(+0x3b885) [0x598fe2feb885]
+	17	D==D	xhpl(+0x3d899) [0x598fe2fed899]
+	11	D==D	xhpl(+0x422c3) [0x598fe2ff22c3]
+	13	D==D	xhpl(+0x42432) [0x598fe2ff2432]
+	18	D==D	xhpl(+0x4273c) [0x598fe2ff273c]
+	2	D=D	xhpl(+0x3a289) [0x598fe2fea289]
+	5	D=D	xhpl(+0x3a418) [0x598fe2fea418]
+	3	D=D	xhpl(+0x3db3e) [0x598fe2fedb3e]
+	4	D=D	xhpl(+0x3db9d) [0x598fe2fedb9d]
+	6	D=D	xhpl(+0x3dd8f) [0x598fe2fedd8f]
+	7	D=D	xhpl(+0x3ddee) [0x598fe2feddee]
+	8	D=D	xhpl(+0x42166) [0x598fe2ff2166]
+	16	D=D	xhpl(+0x42353) [0x598fe2ff2353]
+	20	D=D*D	xhpl(+0x3009a) [0x598fe2fe009a]
+	9	D=D*D	xhpl(+0x421f8) [0x598fe2ff21f8]
+	14	D=D*D	xhpl(+0x42547) [0x598fe2ff2547]
 Run Counts:
-	1	16485
-	2	217584
-	3	43398
-	4	42858
-	5	214200
-	6	37044
-	7	39204
-	8	1617408
-	9	3027456
-	10	3027456
-	11	101088
-	12	855072
-	13	101088
-	14	1617408
-	15	1617408
-	16	762336
-	17	48717
-	18	47646
-	19	139227
-	20	374265
-	21	374265
-Fault Counts:
-	21	3714
+	1	16452
+	2	216000
+	3	40824
+	4	38736
+	5	211824
+	6	40986
+	7	36126
+	8	1585728
+	9	2894976
+	10	2894976
+	11	99108
+	12	827712
+	13	99108
+	14	1585728
+	15	1585728
+	16	758016
+	17	48564
+	18	47376
+	19	141915
+	20	393228
+	21	393228
