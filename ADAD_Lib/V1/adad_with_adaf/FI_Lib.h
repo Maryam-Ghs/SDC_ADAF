@@ -191,7 +191,7 @@ public:
       int range = FI_range_high - FI_range_low + 1;
       // pick a random bit location
       f = (random() % range) + FI_range_low -1;
-      std::cout<<"FI_Lib::get_faulty_double flipping bit position "<<f<<std::endl;
+      //std::cout<<"FI_Lib::get_faulty_double flipping bit position "<<f<<std::endl;
       // put a 1 there
       g = 1ULL << f;
       // xor it on the result
